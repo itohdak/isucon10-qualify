@@ -1,0 +1,14 @@
+# 07/24 13:55
+{"pass":true,"score":857,"messages":[{"text":"POST /api/estate/nazotte: リクエストに失敗しました (タイムアウトしました)","count":15}],"reason":"OK","language":"go"}
+
+# 14:13
+# ドアの縦横SELECT文微修正
+{"pass":true,"score":844,"messages":[{"text":"POST /api/estate/nazotte: リクエストに失敗しました (タイムアウトしました)","count":13}],"reason":"OK","language":"go"}
+
+# 14:40
+# estate tableのrentにインデックスを貼る
+{"pass":true,"score":854,"messages":[{"text":"POST /api/estate/nazotte: リクエストに失敗しました (タイムアウトしました)","count":17}],"reason":"OK","language":"go"}
+
+# 16:51
+# nazzoteのN+1を解消
+{"pass":true,"score":1039,"messages":[],"reason":"OK","language":"go"}
