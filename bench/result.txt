@@ -10,5 +10,5 @@
 {"pass":true,"score":854,"messages":[{"text":"POST /api/estate/nazotte: リクエストに失敗しました (タイムアウトしました)","count":17}],"reason":"OK","language":"go"}
 
 # 16:51
-# nazzoteのN+1を解消
+# nazotteのN+1を解消
 {"pass":true,"score":1039,"messages":[],"reason":"OK","language":"go"}
