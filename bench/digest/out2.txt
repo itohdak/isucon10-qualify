@@ -1,0 +1,659 @@
+
+# 1.3s user time, 20ms system time, 39.84M rss, 103.87M vsz
+# Current date: Sat Jul 24 05:11:51 2021
+# Hostname: ubuntu-bionic
+# Files: /var/log/mysql/mysql-slow.log
+# Overall: 9.57k total, 254 unique, 159.52 QPS, 5.76x concurrency ________
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute          total     min     max     avg     95%  stddev  median
+# ============     ======= ======= ======= ======= ======= ======= =======
+# Exec time           345s     7ms   175ms    36ms    78ms    21ms    31ms
+# Lock time             1s    15us    27ms   138us   167us   905us    27us
+# Rows sent        150.88k       0   1.82k   16.14   24.84   46.17   19.46
+# Rows examine     275.97M  28.81k  31.61k  29.53k  30.09k  347.65  28.66k
+# Query size       876.27k      46     249   93.75  151.03   32.78   88.31
+
+# Profile
+# Rank Query ID                            Response time  Calls R/Call V/M
+# ==== =================================== ============== ===== ====== ===
+#    1 0x1592B6A6C5962A79A3BBB20FFD7BCE7C   23.1328  6.7%   679 0.0341  0.01 SELECT chair
+#    2 0x0036C261F5BF2F15701BB1750635761F   21.2837  6.2%   489 0.0435  0.01 SELECT estate
+#    3 0x07E5ED76C7A93E48E37BD5D8F0FF2FDE   20.9130  6.1%   556 0.0376  0.01 SELECT estate
+#    4 0xF8D9C0871992B1AF9C572B62B2210476   20.0501  5.8%   679 0.0295  0.01 SELECT estate
+#    5 0x7239C60E5785569730222108492FF4F7   17.3410  5.0%   556 0.0312  0.01 SELECT estate
+#    6 0xDAF418A1CBFF50D9A9A4F380692DE1C8   12.5560  3.6%   332 0.0378  0.01 SELECT chair
+#    7 0x4E8EAE12D58B73C2F3EFAD4903F0402F    9.3108  2.7%   332 0.0280  0.01 SELECT chair
+#    8 0x5DE2A94FD483D5087F578E6167724DBF    8.4482  2.4%   256 0.0330  0.01 SELECT estate
+#    9 0x644E34B4F9AC414D9810769325CA5A5E    8.3842  2.4%   239 0.0351  0.01 SELECT estate
+#   10 0xBF1444BD9A8EAD17F291508A52D09114    7.1092  2.1%   256 0.0278  0.01 SELECT estate
+#   11 0x4CD8BC51141C351DC73BFA73427CD78F    7.0107  2.0%   239 0.0293  0.01 SELECT estate
+#   12 0x3D16910D1C54800461F4988BE0D150F8    6.7632  2.0%   169 0.0400  0.01 SELECT chair
+#   13 0x55402B93A43729A085DF0F23BB694539    6.6812  1.9%   136 0.0491  0.01 SELECT estate
+#   14 0x2F6A8881D435EE788EED46376BCF2AE3    6.2886  1.8%   179 0.0351  0.01 SELECT estate
+#   15 0x747A5415F890FCD0F418F8958C3A84C3    5.5107  1.6%   150 0.0367  0.01 SELECT estate
+#   16 0x335F7FF70A5B1F5BBC792221FF0E74ED    5.3278  1.5%   169 0.0315  0.01 SELECT chair
+#   17 0xED731470FE91D25E31E27AD9C15C891F    5.2775  1.5%   179 0.0295  0.01 SELECT estate
+#   18 0xE5EB3FC758DE6E117FEEE42B5C7412D2    4.6946  1.4%   134 0.0350  0.01 SELECT chair
+#   19 0x929E86BFE887C4E10B23D92EDD8D61BC    4.1902  1.2%   150 0.0279  0.01 SELECT estate
+#   20 0x4A8E12431038633B5ADF2C461C6F48FE    3.8240  1.1%    95 0.0403  0.01 SELECT chair
+# MISC 0xMISC                              141.2340 40.9%  3597 0.0393   0.0 <234 ITEMS>
+
+# Query 1: 11.32 QPS, 0.39x concurrency, ID 0x1592B6A6C5962A79A3BBB20FFD7BCE7C at byte 2116889
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          7     679
+# Exec time      6     23s     8ms   116ms    34ms    71ms    20ms    30ms
+# Lock time     10   135ms    18us    16ms   198us   159us     1ms    27us
+# Rows sent      8  13.26k      20      20      20      20       0      20
+# Rows examine   7  19.55M  28.83k  30.29k  29.48k  28.66k  296.67  28.66k
+# Query size     5  47.08k      71      71      71      71       0      71
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #####
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM chair WHERE stock > 0 ORDER BY price ASC, id ASC LIMIT 20\G
+
+# Query 2: 8.15 QPS, 0.35x concurrency, ID 0x0036C261F5BF2F15701BB1750635761F at byte 1401410
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          5     489
+# Exec time      6     21s    10ms   134ms    44ms    87ms    24ms    38ms
+# Lock time      3    53ms    19us     8ms   107us   119us   566us    26us
+# Rows sent      6   9.55k      20      20      20      20       0      20
+# Rows examine   5  14.08M  28.83k  30.29k  29.48k  28.66k  316.96  28.66k
+# Query size     8  73.91k     153     157  154.78  151.03       0  151.03
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  ##
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE (door_width >= 144 AND door_height >= 158) OR (door_width >= 158 AND door_height >= 144) ORDER BY popularity DESC, id ASC LIMIT 20\G
+
+# Query 3: 9.27 QPS, 0.35x concurrency, ID 0x07E5ED76C7A93E48E37BD5D8F0FF2FDE at byte 1797325
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          5     556
+# Exec time      6     21s     9ms   141ms    38ms    78ms    21ms    33ms
+# Lock time      7   102ms    19us    19ms   183us   236us     1ms    28us
+# Rows sent      8  12.86k      10      25   23.68   24.84    4.25   24.84
+# Rows examine   5  16.02M  29.31k  30.40k  29.51k  30.09k  346.67  28.66k
+# Query size     6  59.79k     109     112  110.12  107.34       0  107.34
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ###
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE rent >= 100000 AND rent < 150000 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 25\G
+
+# Query 4: 11.32 QPS, 0.33x concurrency, ID 0xF8D9C0871992B1AF9C572B62B2210476 at byte 2254847
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          7     679
+# Exec time      5     20s     7ms   111ms    30ms    65ms    18ms    24ms
+# Lock time      5    68ms    16us    16ms   100us   113us   725us    23us
+# Rows sent      8  13.26k      20      20      20      20       0      20
+# Rows examine   7  19.55M  28.83k  30.29k  29.49k  28.66k  301.51  28.66k
+# Query size     4  36.47k      55      55      55      55       0      55
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #########
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate ORDER BY rent ASC, id ASC LIMIT 20\G
+
+# Query 5: 9.27 QPS, 0.29x concurrency, ID 0x7239C60E5785569730222108492FF4F7 at byte 2246793
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          5     556
+# Exec time      5     17s     8ms   107ms    31ms    65ms    18ms    28ms
+# Lock time      5    78ms    16us    11ms   140us   185us   786us    25us
+# Rows sent      0     556       1       1       1       1       0       1
+# Rows examine   5  15.99M  29.30k  30.27k  29.46k  30.09k  346.67  28.66k
+# Query size     4  35.57k      65      66   65.51   65.89    0.50   65.89
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #######
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM estate WHERE rent >= 100000 AND rent < 150000\G
+
+# Query 6: 5.53 QPS, 0.21x concurrency, ID 0xDAF418A1CBFF50D9A9A4F380692DE1C8 at byte 2255774
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          3     332
+# Exec time      3     13s     9ms   117ms    38ms    82ms    21ms    33ms
+# Lock time      2    33ms    19us     8ms    99us   138us   558us    28us
+# Rows sent      5   7.90k      10      25   24.37   24.84    3.02   24.84
+# Rows examine   3   9.55M  29.32k  30.37k  29.44k  28.66k  262.60  28.66k
+# Query size     4  39.68k     121     125  122.39  118.34    1.27  118.34
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ##
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM chair WHERE price >= 3000 AND price < 6000 AND stock > 0 ORDER BY popularity DESC, id ASC LIMIT 10 OFFSET 0\G
+
+# Query 7: 5.63 QPS, 0.16x concurrency, ID 0x4E8EAE12D58B73C2F3EFAD4903F0402F at byte 1125437
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          3     332
+# Exec time      2      9s     7ms    95ms    28ms    59ms    16ms    24ms
+# Lock time      4    58ms    16us     8ms   174us   138us   939us    25us
+# Rows sent      0     332       1       1       1       1       0       1
+# Rows examine   3   9.53M  29.30k  30.27k  29.39k  28.66k  262.60  28.66k
+# Query size     2  25.20k      77      79   77.74   76.28       0   76.28
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ########
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM chair WHERE price >= 12000 AND price < 15000 AND stock > 0\G
+
+# Query 8: 4.41 QPS, 0.15x concurrency, ID 0x5DE2A94FD483D5087F578E6167724DBF at byte 2289234
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:20 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          2     256
+# Exec time      2      8s     8ms    98ms    33ms    75ms    20ms    28ms
+# Lock time      1    20ms    19us     8ms    77us   103us   481us    26us
+# Rows sent      3   5.93k      10      25   23.71   24.84    4.21   24.84
+# Rows examine   2   7.38M  29.32k  30.40k  29.51k  30.09k  333.59  28.66k
+# Query size     2  22.66k      90      92   90.62   88.31       0   88.31
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ########
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE rent < 50000 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 0\G
+
+# Query 9: 3.98 QPS, 0.14x concurrency, ID 0x644E34B4F9AC414D9810769325CA5A5E at byte 1160509
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          2     239
+# Exec time      2      8s     8ms   101ms    35ms    75ms    21ms    31ms
+# Lock time      1    16ms    19us     1ms    64us    84us   175us    27us
+# Rows sent      3   5.45k      10      25   23.37   24.84    4.67   24.84
+# Rows examine   2   6.89M  29.31k  30.40k  29.51k  28.66k  320.40  28.66k
+# Query size     2  21.62k      92      94   92.63   92.72       1   92.72
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ####
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE rent >= 150000 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 25\G
+
+# Query 10: 4.34 QPS, 0.12x concurrency, ID 0xBF1444BD9A8EAD17F291508A52D09114 at byte 1116276
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          2     256
+# Exec time      2      7s     7ms    87ms    28ms    61ms    18ms    22ms
+# Lock time      2    34ms    15us     9ms   131us   138us   811us    23us
+# Rows sent      0     256       1       1       1       1       0       1
+# Rows examine   2   7.36M  29.30k  30.27k  29.46k  30.09k  333.59  28.66k
+# Query size     1  11.50k      46      46      46      46       0      46
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ################
+#  10ms  ################################################################
+# 100ms
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM estate WHERE rent < 50000\G
+
+# Query 11: 3.98 QPS, 0.12x concurrency, ID 0x4CD8BC51141C351DC73BFA73427CD78F at byte 2670812
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          2     239
+# Exec time      2      7s     7ms    96ms    29ms    61ms    18ms    26ms
+# Lock time      2    32ms    15us    14ms   133us   144us   965us    23us
+# Rows sent      0     239       1       1       1       1       0       1
+# Rows examine   2   6.88M  29.30k  30.27k  29.46k  28.66k  320.40  28.66k
+# Query size     1  11.20k      48      48      48      48       0      48
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #########
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM estate WHERE rent >= 150000\G
+
+# Query 12: 2.96 QPS, 0.12x concurrency, ID 0x3D16910D1C54800461F4988BE0D150F8 at byte 1781178
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:21 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     169
+# Exec time      1      7s     9ms   121ms    40ms    78ms    22ms    36ms
+# Lock time      1    21ms    21us     5ms   121us   366us   466us    31us
+# Rows sent      2   4.02k      10      25   24.38   24.84    2.99   24.84
+# Rows examine   1   4.86M  29.32k  30.35k  29.44k  28.66k  193.74  28.66k
+# Query size     2  20.00k     120     123  121.20  118.34       0  118.34
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM chair WHERE height >= 110 AND height < 150 AND stock > 0 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 25\G
+
+# Query 13: 2.27 QPS, 0.11x concurrency, ID 0x55402B93A43729A085DF0F23BB694539 at byte 2671396
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:19
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     136
+# Exec time      1      7s     8ms   154ms    49ms    95ms    27ms    46ms
+# Lock time      0    10ms    28us     2ms    74us   138us   174us    36us
+# Rows sent     17  26.06k       0   1.82k  196.24  755.64  332.79   44.60
+# Rows examine   1   3.94M  28.81k  31.61k  29.66k  30.09k  571.40  28.66k
+# Query size     2  25.89k     191     197  194.91  192.76    1.35  192.76
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ###
+#  10ms  ################################################################
+# 100ms  ####
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE latitude <= 36.009402337182934 AND latitude >= 35.23339582039323 AND longitude <= 137.23954292069186 AND longitude >= 136.43078792660947 ORDER BY popularity DESC, id ASC\G
+
+# Query 14: 3.09 QPS, 0.11x concurrency, ID 0x2F6A8881D435EE788EED46376BCF2AE3 at byte 1314314
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:20 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     179
+# Exec time      1      6s     9ms   105ms    35ms    71ms    20ms    30ms
+# Lock time      1    26ms    18us    12ms   144us   348us   926us    26us
+# Rows sent      2   4.30k      10      25   24.58   24.84    2.47   24.84
+# Rows examine   1   5.14M  29.32k  30.28k  29.39k  28.66k  154.22  28.66k
+# Query size     2  20.66k     117     120  118.17  118.34    1.50  112.70
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ##
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE door_height >= 110 AND door_height < 150 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 0\G
+
+# Query 15: 2.59 QPS, 0.10x concurrency, ID 0x747A5415F890FCD0F418F8958C3A84C3 at byte 2630350
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:17
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     150
+# Exec time      1      6s     9ms   110ms    37ms    78ms    22ms    31ms
+# Lock time      0     8ms    20us     1ms    52us   108us   126us    28us
+# Rows sent      2   3.62k      10      25   24.70   24.84    2.10   24.84
+# Rows examine   1   4.31M  29.32k  30.28k  29.41k  28.66k  168.28  28.66k
+# Query size     1  17.01k     115     118  116.12  112.70       0  112.70
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ####
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM estate WHERE door_width >= 110 AND door_width < 150 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 0\G
+
+# Query 16: 2.96 QPS, 0.09x concurrency, ID 0x335F7FF70A5B1F5BBC792221FF0E74ED at byte 1351493
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:21 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     169
+# Exec time      1      5s     7ms   111ms    32ms    61ms    19ms    28ms
+# Lock time      1    20ms    18us     8ms   115us   185us   617us    26us
+# Rows sent      0     169       1       1       1       1       0       1
+# Rows examine   1   4.85M  29.30k  30.27k  29.38k  28.66k  193.74  28.66k
+# Query size     1  12.63k      76      77   76.52   76.28    0.50   76.28
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ###########
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM chair WHERE height >= 80 AND height < 110 AND stock > 0\G
+
+# Query 17: 3.09 QPS, 0.09x concurrency, ID 0xED731470FE91D25E31E27AD9C15C891F at byte 1540807
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:20 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     179
+# Exec time      1      5s     8ms    89ms    29ms    56ms    16ms    26ms
+# Lock time      0    12ms    17us     3ms    66us    93us   300us    23us
+# Rows sent      0     179       1       1       1       1       0       1
+# Rows examine   1   5.13M  29.30k  30.27k  29.33k  28.66k  154.22  28.66k
+# Query size     1  12.85k      73      74   73.51   72.65       0   72.65
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #####
+#  10ms  ################################################################
+# 100ms
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM estate WHERE door_height >= 110 AND door_height < 150\G
+
+# Query 18: 2.27 QPS, 0.08x concurrency, ID 0xE5EB3FC758DE6E117FEEE42B5C7412D2 at byte 969203
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:18
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     134
+# Exec time      1      5s     9ms   105ms    35ms    78ms    20ms    30ms
+# Lock time      1    17ms    22us     9ms   124us   138us   757us    30us
+# Rows sent      2   3.15k      10      25   24.10   24.84    3.56   24.84
+# Rows examine   1   3.85M  29.31k  30.28k  29.41k  28.66k  217.06  28.66k
+# Query size     1  14.08k     104     115  107.59  112.70    4.50  102.22
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  #
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM chair WHERE color = 'オレンジ' AND stock > 0 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 75\G
+
+# Query 19: 2.59 QPS, 0.07x concurrency, ID 0x929E86BFE887C4E10B23D92EDD8D61BC at byte 1296144
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:19 to 2021-07-24T05:11:17
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1     150
+# Exec time      1      4s     7ms    92ms    28ms    65ms    19ms    23ms
+# Lock time      0     6ms    16us     2ms    43us    84us   129us    23us
+# Rows sent      0     150       1       1       1       1       0       1
+# Rows examine   1   4.30M  29.30k  30.27k  29.35k  28.66k  168.28  28.66k
+# Query size     1  10.47k      71      72   71.49   69.19       0   69.19
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms  ##############
+#  10ms  ################################################################
+# 100ms
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'estate'\G
+#    SHOW CREATE TABLE `isuumo`.`estate`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(*) FROM estate WHERE door_width >= 80 AND door_width < 110\G
+
+# Query 20: 1.76 QPS, 0.07x concurrency, ID 0x4A8E12431038633B5ADF2C461C6F48FE at byte 1208240
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2021-07-24T05:10:21 to 2021-07-24T05:11:15
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      95
+# Exec time      1      4s    10ms   104ms    40ms    82ms    22ms    34ms
+# Lock time      0     6ms    23us     2ms    61us   108us   165us    28us
+# Rows sent      1   2.29k      10      25   24.68   24.84    2.15   24.84
+# Rows examine   0   2.73M  29.32k  29.91k  29.39k  28.66k       0  28.66k
+# Query size     1  10.98k     109     126  118.37  124.25    5.37  118.34
+# String:
+# Databases    isuumo
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isuumo` LIKE 'chair'\G
+#    SHOW CREATE TABLE `isuumo`.`chair`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM chair WHERE kind = 'エルゴノミクス' AND stock > 0 ORDER BY popularity DESC, id ASC LIMIT 25 OFFSET 50\G
