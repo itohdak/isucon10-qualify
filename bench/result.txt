@@ -20,3 +20,7 @@
 # 07/25 02:45
 # popularity DESCの部分をgenerated columnを使って、popularity_desc ASCにし、さらにindexを貼る
 {"pass":true,"score":1332,"messages":[{"text":"GET /api/chair/:id: リクエストに失敗しました (タイムアウトしました)","count":30},{"text":"GET /api/chair/low_priced: リクエストに失敗しました (タイムアウトしました)","count":2},{"text":"GET /api/chair/search: リクエストに失敗しました (タイムアウトしました)","count":14},{"text":"GET /api/estate/:id: リクエストに失敗しました (タイムアウトしました)","count":27},{"text":"GET /api/estate/low_priced: リクエストに失敗しました (タイムアウトしました)","count":1},{"text":"GET /api/estate/search: リクエストに失敗しました (タイムアウトしました)","count":8},{"text":"GET /api/recommended_estate/:id: リクエストに失敗しました (タイムアウトしました)","count":1},{"text":"POST /api/estate/nazotte: リクエストに失敗しました (タイムアウトしました)","count":1},{"text":"POST /api/estate/req_doc/:id: リクエストに失敗しました (タイムアウトしました)","count":2}],"reason":"OK","language":"go"}
+
+# 07/25 20:47
+# pointをgenerated columnとして追加、SPATIAL INDEXを貼る
+{"pass":true,"score":1313,"messages":[{"text":"GET /api/chair/:id: リクエストに失敗しました (タイムアウトしました)","count":9},{"text":"GET /api/chair/low_priced: リクエストに失敗しました (タイムアウトしました)","count":2},{"text":"GET /api/chair/search: リクエストに失敗しました (タイムアウトしました)","count":7},{"text":"GET /api/estate/:id: リクエストに失敗しました (タイムアウトしました)","count":8},{"text":"GET /api/estate/search: リクエストに失敗しました (タイムアウトしました)","count":6},{"text":"GET /api/recommended_estate/:id: リクエストに失敗しました (タイムアウトしました)","count":1}],"reason":"OK","language":"go"}
