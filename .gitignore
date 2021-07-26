@@ -5,3 +5,7 @@
 
 node_modules
 bower_components
+
+nohup.out
+webapp/logs
+bench/bench
