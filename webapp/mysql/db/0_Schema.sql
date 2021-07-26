@@ -25,6 +25,8 @@ CREATE TABLE isuumo.estate
 ALTER TABLE isuumo.estate ADD INDEX rent_index(rent);
 ALTER TABLE isuumo.estate ADD INDEX popularity_desc_index(popularity_desc);
 ALTER TABLE isuumo.estate ADD SPATIAL INDEX point_index(point);
+ALTER TABLE isuumo.estate ADD INDEX door_height_index(door_height);
+ALTER TABLE isuumo.estate ADD INDEX door_width_index(door_width);
 
 CREATE TABLE isuumo.chair
 (
